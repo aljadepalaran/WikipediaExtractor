@@ -20,7 +20,7 @@ public class Response<T>
         return new Response<T>(true, message, data, statusCode);
     }
 
-    public static Response<T> FailureResponse(string message, T? data = default, int statusCode = 400)
+    public static Response<T> FailureResponse(T? data, string message = "Operation failed", int statusCode = 400)
     {
         return new Response<T>(false, message, data, statusCode);
     }

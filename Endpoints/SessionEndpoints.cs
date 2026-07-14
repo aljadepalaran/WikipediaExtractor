@@ -14,8 +14,7 @@ public static class SessionEndpoints
 
         app.MapPost("/logout", async (ISessionService sessionService) =>
         {
-            return "logout";
-            // run session service (logout)
+            return await sessionService.LogoutAsync();
         });
     }
 }

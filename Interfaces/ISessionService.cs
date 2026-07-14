@@ -1,9 +1,10 @@
 using WikipediaExtractor.Contracts;
+using WikipediaExtractor.Entities;
 
 namespace WikipediaExtractor.Interfaces;
 
 public interface ISessionService
 {
-    Task<Response<string>> LoginAsync(LoginRequest request);
+    Task<Response<SessionDto>> LoginAsync(LoginRequest request);
     Task<Response<string>> LogoutAsync();
 }
