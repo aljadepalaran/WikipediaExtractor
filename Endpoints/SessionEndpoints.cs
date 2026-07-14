@@ -7,10 +7,9 @@ public static class SessionEndpoints
 {
     public static void MapSessionEndpoints(this WebApplication app)
     {
-        app.MapPost("/login", async (ISessionService sessionService) =>
+        app.MapPost("/login", async (LoginRequest request,ISessionService sessionService) =>
         {
-            return "login";
-            // run session service (login)
+            return await sessionService.LoginAsync(request);
         });
 
         app.MapPost("/logout", async (ISessionService sessionService) =>

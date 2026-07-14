@@ -4,6 +4,6 @@ namespace WikipediaExtractor.Interfaces;
 
 public interface ISessionService
 {
-    Task LoginAsync(LoginRequest request);
-    Task LogoutAsync();
+    Task<Response<string>> LoginAsync(LoginRequest request);
+    Task<Response<string>> LogoutAsync();
 }
