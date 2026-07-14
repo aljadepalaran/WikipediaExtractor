@@ -43,12 +43,12 @@ public class SessionService(InMemoryDbContext _context) : ISessionService
     public async Task<Response<string>> LogoutAsync()
     {
         // TODO: Implement LogoutAsync
-        return Response<string>.SuccessResponse(null, "Logout successful", 200);
+        return Response<string>.SuccessResponse("", "Logout successful", 200);
     }
 
     public async Task<Response<List<Session>>> GetAllSessionsAsync()
     {
         var sessions = await _context.Session.ToListAsync();
-        return Response<List<Session>>.SuccessResponse(sessions, null, 200);
+        return Response<List<Session>>.SuccessResponse(sessions, "", 200);
     }
 }
