@@ -1,6 +1,0 @@
-@WikipediaExtractor_HostAddress = http://localhost:5157
-
-GET {{WikipediaExtractor_HostAddress}}/weatherforecast/
-Accept: application/json
-
-###
