@@ -6,6 +6,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services
     .AddOpenApi()
+    // Load services through dependency injection
     .AddScoped<ISessionService, SessionService>()
     .AddScoped<IRegistrationService, RegistrationService>();
 

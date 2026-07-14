@@ -1,13 +1,24 @@
 using WikipediaExtractor.Interfaces;
 using WikipediaExtractor.Contracts;
+using WikipediaExtractor.Entities;
+using Microsoft.AspNetCore.Identity;
 
 namespace WikipediaExtractor.Services;
 
 public class RegistrationService : IRegistrationService
 {
-    public async Task RegisterAsync(RegistrationRequest request)
+    public async Task<Response<User>> RegisterAsync(RegistrationRequest request)
     {
-        // TODO: Implement RegisterAsync
+        var user = new User
+        {
+            Username = request.Username,
+            Email = request.Email,
+            FirstName = request.FirstName,
+            LastName = request.LastName,
+            PasswordHash = new PasswordHasher<User>().HashPassword(null, request.Password)
+        };
+
+        return Response<User>.SuccessResponse(user, "User registered successfully");
     }
     
 }

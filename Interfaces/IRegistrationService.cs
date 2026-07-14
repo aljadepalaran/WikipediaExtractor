@@ -1,8 +1,9 @@
 using WikipediaExtractor.Contracts;
+using WikipediaExtractor.Entities;
 
 namespace WikipediaExtractor.Interfaces;
 
 public interface IRegistrationService
 {
-    Task RegisterAsync(RegistrationRequest request);
+    Task<Response<User>> RegisterAsync(RegistrationRequest request);
 }

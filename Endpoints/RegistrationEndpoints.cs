@@ -6,10 +6,10 @@ public static class RegistrationEndpoints
 {
     public static void MapRegistrationEndpoints(this WebApplication app)
     {
-        app.MapPost("/register", async (IRegistrationService registrationService) =>
+        app.MapPost("/register", async (RegistrationRequest request, IRegistrationService registrationService) =>
         {
-            return "register";
-            // run registration service
+            var response = await registrationService.RegisterAsync(request);
+            return response;
         });
     }
 }
