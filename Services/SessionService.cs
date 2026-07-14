@@ -22,6 +22,7 @@ public class SessionService(InMemoryDbContext _context) : ISessionService
                 return Response<SessionDto>.FailureResponse(new SessionDto(string.Empty, DateTime.MinValue), "Invalid password", 401);
             } else
             {
+                // TODO: Add validation on existing sessions
                 // TODO: Be more specific with conditions to reach this
                 var session = new Session
                 {
@@ -43,5 +44,11 @@ public class SessionService(InMemoryDbContext _context) : ISessionService
     {
         // TODO: Implement LogoutAsync
         return Response<string>.SuccessResponse(null, "Logout successful", 200);
+    }
+
+    public async Task<Response<List<Session>>> GetAllSessionsAsync()
+    {
+        var sessions = await _context.Session.ToListAsync();
+        return Response<List<Session>>.SuccessResponse(sessions, null, 200);
     }
 }

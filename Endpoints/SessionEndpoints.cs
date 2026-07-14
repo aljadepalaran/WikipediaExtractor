@@ -16,5 +16,10 @@ public static class SessionEndpoints
         {
             return await sessionService.LogoutAsync();
         });
+
+        app.MapGet("/sessions", async (ISessionService sessionService) =>
+        {
+            return await sessionService.GetAllSessionsAsync();
+        });
     }
 }
