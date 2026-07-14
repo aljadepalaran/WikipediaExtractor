@@ -1,6 +1,9 @@
 using WikipediaExtractor.Services;
 using WikipediaExtractor.Interfaces;
 using WikipediaExtractor.Endpoints;
+using WikipediaExtractor.Data;
+
+using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -8,7 +11,11 @@ builder.Services
     .AddOpenApi()
     // Load services through dependency injection
     .AddScoped<ISessionService, SessionService>()
-    .AddScoped<IRegistrationService, RegistrationService>();
+    .AddScoped<IRegistrationService, RegistrationService>()
+    .AddDbContext<InMemoryDbContext>(options => 
+        options.UseInMemoryDatabase(
+            builder.Configuration.GetConnectionString("InMemoryDatabase")!
+        ));
 
 var app = builder.Build();
 

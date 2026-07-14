@@ -15,9 +15,9 @@ public class RegistrationService : IRegistrationService
             Email = request.Email,
             FirstName = request.FirstName,
             LastName = request.LastName,
-            PasswordHash = new PasswordHasher<User>().HashPassword(null, request.Password)
         };
 
+        user.PasswordHash = new PasswordHasher<User>().HashPassword(user, request.Password);
         return Response<User>.SuccessResponse(user, "User registered successfully");
     }
     
