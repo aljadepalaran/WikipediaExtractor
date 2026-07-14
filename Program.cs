@@ -12,6 +12,7 @@ builder.Services
     // Load services through dependency injection
     .AddScoped<ISessionService, SessionService>()
     .AddScoped<IRegistrationService, RegistrationService>()
+    .AddScoped<ISearchService, SearchService>()
     .AddDbContext<InMemoryDbContext>(options => 
         options.UseInMemoryDatabase(
             builder.Configuration.GetConnectionString("InMemoryDatabase")!
@@ -27,5 +28,6 @@ if (app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 app.MapRegistrationEndpoints();
 app.MapSessionEndpoints();
+app.MapSearchEndpoints();
 
 app.Run();
