@@ -1,7 +1,13 @@
+using WikipediaExtractor.Services;
+using WikipediaExtractor.Interfaces;
+using WikipediaExtractor.Endpoints;
+
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services
-    .AddOpenApi();
+    .AddOpenApi()
+    .AddScoped<ISessionService, SessionService>()
+    .AddScoped<IRegistrationService, RegistrationService>();
 
 var app = builder.Build();
 
@@ -11,5 +17,7 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+app.MapRegistrationEndpoints();
+app.MapSessionEndpoints();
 
 app.Run();
