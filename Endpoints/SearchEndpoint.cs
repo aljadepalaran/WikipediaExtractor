@@ -14,12 +14,11 @@ public static class SearchEndpoints
 
             if (!authResponse.Authenticated)
             {
-                return Response<SearchResult>.FailureResponse(new SearchResult(), "", 401);
+                return Response<SearchResult>.FailureResponse(null, "", 401);
             }
 
             var userId = authResponse.UserId;
-            var response = await searchService.RunSearchAsync(query, userId);
-            return response;
+            return await searchService.RunSearchAsync(query, userId);
         });
     }
 }
