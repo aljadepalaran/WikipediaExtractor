@@ -13,6 +13,7 @@ builder.Services
     .AddScoped<ISessionService, SessionService>()
     .AddScoped<IRegistrationService, RegistrationService>()
     .AddScoped<ISearchService, SearchService>()
+    .AddScoped<IAuthService, AuthService>()
     .AddDbContext<InMemoryDbContext>(options => 
         options.UseInMemoryDatabase(
             builder.Configuration.GetConnectionString("InMemoryDatabase")!

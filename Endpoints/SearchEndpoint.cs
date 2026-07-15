@@ -8,9 +8,9 @@ public static class SearchEndpoints
 { 
     public static void MapSearchEndpoints(this WebApplication app)
     {
-        app.MapGet("/search", async (HttpContext context, string query,ISearchService searchService) => 
+        app.MapGet("/search", async (HttpContext context, string query,ISearchService searchService, IAuthService authService) => 
         {
-            var authResponse = AuthenticateRequest(context);
+            var authResponse = await authService.AuthenticateRequestAsync(context);
 
             if (!authResponse.Authenticated)
             {
@@ -21,31 +21,5 @@ public static class SearchEndpoints
             var response = await searchService.RunSearchAsync(query, userId);
             return response;
         });
-    }
-    public static AuthenticationResponse AuthenticateRequest(HttpContext context)
-    {
-        var authToken = context.Request.Headers["Token"];
-        if(authToken == "Token")
-        {
-            return new AuthenticationResponse
-            {
-                UserId = 123,
-                Authenticated = true
-            };
-        }
-        else
-        {
-            return new AuthenticationResponse
-            {
-                UserId = 123,
-                Authenticated = false
-            };
-        }
-    }
-
-    public struct AuthenticationResponse
-    {
-        public int UserId { get; set; }
-        public bool Authenticated { get; set; }
     }
 }
