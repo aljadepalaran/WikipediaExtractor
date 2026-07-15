@@ -1,21 +1,25 @@
 using WikipediaExtractor.Entities;
 using WikipediaExtractor.Interfaces;
 using WikipediaExtractor.Data;
+using WikipediaExtractor.Contracts;
 
 namespace WikipediaExtractor.Services;
 
 public class SearchService(InMemoryDbContext _context) : ISearchService
 {
-    public async Task<SearchResult> RunSearchAsync(string query, int userId)
+    public async Task<Response<SearchResult>> RunSearchAsync(string query, int userId)
     {
+        // Run search against Wikipedia and extract data
         var searchResult = new SearchResult
         {
-            SearchTerm = query
+            SearchTerm = query,
+            UserId = userId
         };
 
+        // Save search data into the database
         _context.SearchResult.Add(searchResult);
         await _context.SaveChangesAsync();
 
-        return searchResult;
+        return Response<SearchResult>.SuccessResponse(searchResult, "", 200);
     }
 }
