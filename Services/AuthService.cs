@@ -1,25 +1,18 @@
 using WikipediaExtractor.Contracts;
 using WikipediaExtractor.Interfaces;
+using WikipediaExtractor.Data;
+using Microsoft.EntityFrameworkCore;
 
 namespace WikipediaExtractor.Services;
 
-public class AuthService : IAuthService
+public class AuthService(InMemoryDbContext dbContext) : IAuthService
 {
     public async Task<AuthResponse> AuthenticateRequestAsync(HttpContext context)
     {
         var authToken = context.Request.Headers["Token"];
-        // Session.FindByToken(authToken);
-        // If the session exists, return with UserId
-        // If the session does not exist, return AuthResponse.Authenticated = false
-        if(authToken == "Token")
-        {
-            return new AuthResponse
-            {
-                UserId = 123,
-                Authenticated = true
-            };
-        }
-        else
+        var session = await dbContext.Session.FirstOrDefaultAsync(session => session.Token == authToken);
+
+        if (session == null)
         {
             return new AuthResponse
             {
@@ -27,5 +20,14 @@ public class AuthService : IAuthService
                 Authenticated = false
             };
         }
+        else
+        {
+            return new AuthResponse
+            {
+                UserId = session.UserId,
+                Authenticated = true
+            };
+        }
+        
     }
 }
