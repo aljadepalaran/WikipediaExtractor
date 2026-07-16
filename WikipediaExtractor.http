@@ -1,0 +1,41 @@
+@WikipediaExtractor_HostAddress = http://localhost:5157
+@Wikipedia_HostAddress = https://en.wikipedia.org
+
+# Register
+POST {{WikipediaExtractor_HostAddress}}/register
+Content-Type: application/json
+
+{
+  "username": "username",
+  "email": "aljade.palaran@email.com",
+  "firstname": "aljade",
+  "lastname": "palaran",
+  "password": "password"
+}
+
+###
+
+# Login
+POST {{WikipediaExtractor_HostAddress}}/login
+Content-Type: application/json
+
+{
+  "username": "username",
+  "password": "password"
+}
+
+###
+
+# Logout
+POST {{WikipediaExtractor_HostAddress}}/logout
+
+###
+
+# Run search
+GET {{WikipediaExtractor_HostAddress}}/search?query=123
+Token: 3cbd7c4b-418e-477b-a312-72670249bd13
+
+###
+
+# Open API
+GET {{WikipediaExtractor_HostAddress}}/openapi/v1.json
